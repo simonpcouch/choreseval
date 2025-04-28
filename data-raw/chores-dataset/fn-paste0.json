@@ -1,0 +1,8 @@
+{
+  "id": "cli-fn-paste0",
+  "user": "rlang::abort(paste0(\"Internal error: `\", fn, \"()` should never be called.\"))",
+  "target": "cli::cli_abort(\"Internal error: {.fn {fn}} should never be called.\")",
+  "helper": "cli",
+  "source": "https://github.com/tidymodels/tune/commit/f6772f472039a63b0a0cf83058d1ded6c228a9a9",
+  "parsable": true
+}

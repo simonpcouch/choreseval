@@ -1,0 +1,8 @@
+{
+  "id": "cli-parameters-arg",
+  "user": "rlang::abort(\"'parameters' should be a single row data frame\")",
+  "target": "cli::cli_abort(\"{.arg parameters} should be a single row data frame.\")",
+  "helper": "cli",
+  "source": "https://github.com/tidymodels/tune/commit/f6772f472039a63b0a0cf83058d1ded6c228a9a9",
+  "parsable": true
+}

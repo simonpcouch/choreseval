@@ -1,0 +1,8 @@
+{
+  "id": "cli-nested-paste0-metrics",
+  "user": "    msg <- paste(\n       \"We don't know about metrics of type:\",\n       paste(unique(metric_types), collapse = \", \")\n     rlang::abort(msg)",
+  "target": "     cli::cli_abort(\n       \"We don't know about metrics of type: {.val {unique(metric_types)}}.\"\n     )",
+  "helper": "cli",
+  "source": "https://github.com/tidymodels/tune/commit/f6772f472039a63b0a0cf83058d1ded6c228a9a9",
+  "parsable": true
+}

@@ -1,0 +1,8 @@
+{
+  "id": "cli-parameters-arg-markup",
+  "user": "      rlang::abort(\n         paste0(\n           \"It looks like there are \", nrow(param_combos), \" tuning parameter \",\n           \"combination(s) in the data. Please use the `parameters` \",\n           \"argument to select one combination of parameters.\"\n         )\n     )",
+  "target": "     cli::cli_abort(\n         \"It looks like there are {nrow(param_combos)} tuning parameter\n         combination in the data. Please use the {.arg parameters}\n         argument to select one combination of parameters.\"\n       )",
+  "helper": "cli",
+  "source": "https://github.com/tidymodels/tune/commit/f6772f472039a63b0a0cf83058d1ded6c228a9a9",
+  "parsable": true
+}

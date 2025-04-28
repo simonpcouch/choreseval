@@ -1,0 +1,8 @@
+{
+  "id": "cli-purrr-friendly-type",
+  "user": "abort(sprintf(\"`.f` must be a function, not %s\", friendly_type_of(.f)))",
+  "target": "    cli::cli_abort(\n       \"{.arg .f} must be a function, not {.obj_friendly_type { .f }}.\"\n     )",
+  "helper": "cli",
+  "source": "https://github.com/tidyverse/purrr/commit/06fcb5f8e9709b6796976e4b6d1ed5d67558c92a",
+  "parsable": true
+}

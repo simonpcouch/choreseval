@@ -1,0 +1,8 @@
+{
+  "id": "cli-fn-help",
+  "user": "    rlang::abort(paste0(\n       \"Case weights must be a supported case weights type, as determined by \",\n       \"`hardhat::is_case_weights()`.\"\n     ))",
+  "target": "    cli::cli_abort(\n       \"Case weights must be a supported case weights type, as determined by\n       {.fn hardhat::is_case_weights}.\"\n     )",
+  "helper": "cli",
+  "source": "https://github.com/tidymodels/tune/commit/f6772f472039a63b0a0cf83058d1ded6c228a9a9",
+  "parsable": true
+}

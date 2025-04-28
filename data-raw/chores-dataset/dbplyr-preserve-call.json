@@ -1,0 +1,8 @@
+{
+  "id": "cli-dbplyr-preserve-call",
+  "user": "abort('`conflict = \"error\"` is not supported for database tables.', call = error_call)",
+  "target": "cli_abort('{.code conflict = \"error\"} is not supported for database tables.', call = error_call)",
+  "helper": "cli",
+  "source": "https://github.com/tidyverse/dbplyr/commit/2686125a117d40fa95bf7f997397188262ddd9b0",
+  "parsable": true
+}

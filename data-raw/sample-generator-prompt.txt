@@ -1,0 +1,19 @@
+I passed the following prompt to Claude 3.7 Sonnet:
+
+----
+
+Please write me a shiny app "Eval sample json generator" that will help me quickly write json files. It should have two columns in the UI.
+
+LHS:
+
+* A free text input `id` that's one line, with ghost text "e.g. 'cli-sprintf'"
+* A free text input `user` that's a few lines
+* A free text input `target` that's a few lines
+
+RHS:
+
+* A multiple-choice `helper` with options NA (default), "cli", "roxygen", and "testthat", or a free text "Other".
+* A free text input `source`
+* A multiple-choice `parsable` that's either "Yes" or "No", defaulting to "Yes".
+
+On the bottom RHS, there's a "Submit" button that, when clicked, writes all of the inputted data to a json file using `jsonlite`, shows a status message "Sample written to file!", and clears the inputs so that they're ready to accept a new sample. Write the resulting file to `data-raw/chores-dataset/{id}.json`.

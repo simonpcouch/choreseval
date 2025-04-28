@@ -1,0 +1,8 @@
+{
+  "id": "cli-multiline-pluralization",
+  "user": "    msg <- paste0(num_cols, \" columns were requested but there were \", p,\n                  \" predictors in the data. \", p, \" will be used.\")\n     rlang::warn(msg)",
+  "target": "   cli::cli_warn(\n       c(\n         \"!\" = \"{num_cols} column{?s} {?was/were} requested but there {cli::qty(p)} {?was/were}\n                {p} predictor{?s} in the data.\",\n         \"i\" = \"{p} predictor{?s} will be used.\"\n       )\n     )",
+  "helper": "cli",
+  "source": "https://github.com/tidymodels/parsnip/commit/dc9e1883ce66930ccd4497a651f0372fba5c7fac",
+  "parsable": true
+}

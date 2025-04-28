@@ -1,0 +1,8 @@
+{
+  "id": "cli-reprex-halt-fn",
+  "user": "      abort(glue::glue(\"\n         This reprex appears to halt execution of `rmarkdown::render()`.\"))",
+  "target": "cli::cli_abort(\n         \"This reprex appears to halt execution of {.fun rmarkdown::render}.\"\n)",
+  "helper": "cli",
+  "source": "https://github.com/tidyverse/reprex/commit/a3f3d177b41874b2721a2ed9c0bc4f968eb18919",
+  "parsable": true
+}

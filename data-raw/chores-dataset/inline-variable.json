@@ -1,0 +1,8 @@
+{
+  "id": "cli-inline-variable",
+  "user": "    msg <- paste0(\"Argument '\", arg_val, \"' should be a single, non-negative value.\")\n     rlang::abort(msg)",
+  "target": "cli::cli_abort(\"{.arg {arg_val}} should be a single, non-negative value.\")",
+  "helper": "cli",
+  "source": "https://github.com/tidymodels/parsnip/commit/dc9e1883ce66930ccd4497a651f0372fba5c7fac",
+  "parsable": true
+}

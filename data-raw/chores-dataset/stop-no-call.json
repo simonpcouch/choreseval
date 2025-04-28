@@ -1,0 +1,8 @@
+{
+  "id": "cli-stop-no-call",
+  "user": "stop(\"No guess has more than 50% confidence\", call. = FALSE)",
+  "target": "```\ncli::cli_abort(\"No guess has more than 50% confidence\")\n```\n\nCan also have `call = NULL`.",
+  "helper": "cli",
+  "source": "https://github.com/tidyverse/rvest/commit/ee093b1e2f0bf04148b813fe86dc6b98e844969e",
+  "parsable": true
+}

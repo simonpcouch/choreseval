@@ -1,0 +1,12 @@
+^choreseval\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^README\.Rmd$
+^cran-comments\.md$
+^data-raw$
+robots.txt
+^[\.]?air\.toml$
+^\.vscode$
+inst/log_dump/
+context/
+CLAUDE.md

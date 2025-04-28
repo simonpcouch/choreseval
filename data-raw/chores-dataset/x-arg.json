@@ -1,0 +1,8 @@
+{
+  "id": "cli-x-arg",
+  "user": "rlang::abort(\"`x` should be a data frame.\")",
+  "target": "cli::cli_abort(\"{.arg x} should be a data frame.\")",
+  "helper": "cli",
+  "source": "https://github.com/tidymodels/parsnip/commit/dc9e1883ce66930ccd4497a651f0372fba5c7fac",
+  "parsable": true
+}

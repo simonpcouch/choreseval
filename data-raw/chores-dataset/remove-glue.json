@@ -1,0 +1,8 @@
+{
+  "id": "cli-remove-glue",
+  "user": "    rlang::abort(\n       c(\n         glue::glue(\n           \"Object of class `{class(x)[1]}` cannot be coerced to \",\n           \"object of class `{class(ref)[1]}`.\"\n         ),\n         \"The following arguments are missing:\",\n         glue::glue_collapse(\n           glue::single_quote(mismatch),\n           sep = \", \", last = \", and \"\n         )\n)\n)",
+  "target": "    cli::cli_abort(\n       c(\n        \"Object of class {.cls class(x)[1]} cannot be coerced to\n          object of class {.cls class(ref)[1]}.\",\n         \"i\" = \"{cli::qty(mismatch)} The argument{?s} {.arg {mismatch}}\n                {?is/are} missing.\"\n       )\n     )",
+  "helper": "cli",
+  "source": "https://github.com/tidymodels/parsnip/commit/dc9e1883ce66930ccd4497a651f0372fba5c7fac",
+  "parsable": true
+}

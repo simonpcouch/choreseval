@@ -1,0 +1,8 @@
+{
+  "id": "cli-ad-hoc-collapse",
+  "user": "      p_names <- pset$id[is.na(pset$object)]\n       msg <-\n         paste0(\n           \"Some parameters do not have corresponding parameter objects \",\n           \"and cannot be used with `autoplot()`: \",\n           paste0(\"'\", p_names, \"'\", collapse = \", \")\n         )\n       rlang::abort(msg)",
+  "target": "      cli::cli_abort(\n         \"Some parameters do not have corresponding parameter objects and\n          cannot be used with {.fn autoplot}: {.arg {pset$id[is.na(pset$object)]}}.\"\n       )",
+  "helper": "cli",
+  "source": "https://github.com/tidymodels/tune/commit/f6772f472039a63b0a0cf83058d1ded6c228a9a9",
+  "parsable": true
+}

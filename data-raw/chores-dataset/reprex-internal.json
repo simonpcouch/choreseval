@@ -1,0 +1,8 @@
+{
+  "id": "cli-reprex-internal",
+  "user": "     abort(\"Internal error: `arg_option()` expects a symbol\")",
+  "target": "     cli::cli_abort(\n       \"{.fun arg_option} expects a symbol.\",\n       .internal = TRUE\n     )",
+  "helper": "cli",
+  "source": "https://github.com/tidyverse/reprex/commit/0e421b0b6ac913c4126853e1ba037d1c1d77be9d",
+  "parsable": true
+}

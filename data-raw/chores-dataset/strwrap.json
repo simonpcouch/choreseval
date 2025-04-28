@@ -1,0 +1,8 @@
+{
+  "id": "cli-strwrap",
+  "user": "    rlang::warn(\n       paste(\n         strwrap(\n           paste(\n             \"The object is missing some attributes; it is probably from\",\n             \"an earlier version of `tune`. The predictions can't be filtered.\"\n           ),\n           prefix = \"\"\n         ),\n         collapse = \"\\n\"\n       )\n     )",
+  "target": "    cli::cli_warn(\n       \"The object is missing some attributes; it is probably from an earlier \n        version of {.pkg tune}. The predictions can't be filtered.\"\n     )",
+  "helper": "cli",
+  "source": "https://github.com/tidymodels/tune/commit/f6772f472039a63b0a0cf83058d1ded6c228a9a9",
+  "parsable": true
+}

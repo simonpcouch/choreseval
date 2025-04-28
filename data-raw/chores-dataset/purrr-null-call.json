@@ -1,0 +1,8 @@
+{
+  "id": "cli-purrr-null-call",
+  "user": "stop(\"Cannot coerce .x to a vector\", call. = FALSE)",
+  "target": "```\n    cli::cli_abort(\n       \"Can't coerce {.arg .x} to a vector.\"\n     )\n```\n\nCan also have `call = NULL`.\n",
+  "helper": "cli",
+  "source": "https://github.com/tidyverse/purrr/commit/06fcb5f8e9709b6796976e4b6d1ed5d67558c92a",
+  "parsable": true
+}

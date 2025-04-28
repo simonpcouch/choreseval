@@ -1,0 +1,8 @@
+{
+  "id": "cli-inline-glue",
+  "user": "    rlang::abort(\n       glue::glue(\n         \"These argument(s) cannot be used to create the data: \",\n         glue::glue_collapse(glue::glue(\"`{names(x)[!good_names]}`\"), sep = \", \"),\n         \". Possible arguments are: \",\n         glue::glue_collapse(glue::glue(\"`{good_args}`\"), sep = \", \")\n       )\n)",
+  "target": "    cli::cli_abort(\n       c(\n         \"The argument{?s} {.arg {names(x)[!good_names]}} cannot be used to create\n          the data.\",\n         \"Possible arguments are {.arg {.or {good_args}}.\"\n       )\n     )",
+  "helper": "cli",
+  "source": "https://github.com/tidymodels/parsnip/commit/dc9e1883ce66930ccd4497a651f0372fba5c7fac",
+  "parsable": true
+}

@@ -1,0 +1,8 @@
+{
+  "id": "cli-str-multiline",
+  "user": "      abort(c(\n         paste0(\"No <input> found with name '\", idx, \"'.\"),\n         i = paste0(\"Possible values: \", paste0(names(buttons), collapse = \", \"))\n       ))",
+  "target": "      cli::cli_abort(\n         c(\n           \"No <input> found with name {.str {idx}}.\",\n           i = \"Possible values: {.str {names(buttons)}}.\"\n         )\n       )",
+  "helper": "cli",
+  "source": "https://github.com/tidyverse/rvest/commit/ee093b1e2f0bf04148b813fe86dc6b98e844969e",
+  "parsable": true
+}

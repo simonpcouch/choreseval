@@ -1,0 +1,8 @@
+{
+  "id": "cli-duckplyr-capture-output",
+  "user": "    abort(\n       c(\n         \"duckplyr: internal: hash not found\",\n         i = paste0(\"hash: \", hash),\n         i = paste0(\"relation: \", paste(utils::capture.output(print(rel), type = \"message\"), collapse = \"\\n\"))\n       )\n     )",
+  "target": " ```\n   rel_out <- paste(utils::capture.output(print(rel), type = \"message\"), collapse = \"\\n\")\n     cli::cli_abort(c(\n       \"duckplyr: internal: hash not found\",\n       i = \"hash: {hash}\",\n       i = \"relation: {rel_out}\"\n     ))\n```\n\nAlso fine to inline `rel_out` into the `cli_abort()` call.",
+  "helper": "cli",
+  "source": "https://github.com/tidyverse/duckplyr/commit/dc6bec41cef7783a17730322611f834e487862cd",
+  "parsable": true
+}

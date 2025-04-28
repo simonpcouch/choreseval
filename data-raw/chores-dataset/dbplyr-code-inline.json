@@ -1,0 +1,8 @@
+{
+  "id": "cli-dbplyr-code-inline",
+  "user": "abort(\"Can't determine name for target table. Set `in_place = FALSE` to return a lazy table.\")",
+  "target": "cli::cli_abort(\"Can't determine name for target table. Set {.code in_place = FALSE} to return a lazy table.\")",
+  "helper": "cli",
+  "source": "https://github.com/tidyverse/dbplyr/commit/2686125a117d40fa95bf7f997397188262ddd9b0",
+  "parsable": true
+}

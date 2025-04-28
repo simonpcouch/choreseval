@@ -1,0 +1,8 @@
+{
+  "id": "cli-collapse-pluralization",
+  "user": "    rlang::abort(\n       glue::glue(\n         \"Extra arguments will be ignored: \",\n         glue::glue_collapse(glue::glue(\"`{names(dots)}`\"), sep = \", \")\n       )\n     )",
+  "target": "cli::cli_abort(\"The extra argument{?s} {.arg {names(dots)}} will be ignored.\")",
+  "helper": "cli",
+  "source": "https://github.com/tidymodels/parsnip/commit/dc9e1883ce66930ccd4497a651f0372fba5c7fac",
+  "parsable": true
+}

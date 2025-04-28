@@ -1,0 +1,8 @@
+{
+  "id": "cli-trade_off-arg",
+  "user": "rlang::abort(\"`trade_off` should be a number or a function.\")",
+  "target": "cli::cli_abort(\"{.arg trade_off} should be a number or a function.\")",
+  "helper": "cli",
+  "source": "https://github.com/tidymodels/tune/commit/f6772f472039a63b0a0cf83058d1ded6c228a9a9",
+  "parsable": true
+}

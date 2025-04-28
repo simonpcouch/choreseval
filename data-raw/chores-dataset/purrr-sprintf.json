@@ -1,0 +1,8 @@
+{
+  "id": "cli-purrr-sprintf",
+  "user": "      abort(sprintf(\n         \"`margin` must be `NULL` or `1` with 1D arrays, not `%s`\",\n         toString(margin)\n       ))",
+  "target": "      cli::cli_abort(\n         \"{.arg margin} must be `NULL` or `1` with 1D arrays, not {.str {margin}}.\"\n       )",
+  "helper": "cli",
+  "source": "https://github.com/tidyverse/purrr/commit/06fcb5f8e9709b6796976e4b6d1ed5d67558c92a",
+  "parsable": true
+}

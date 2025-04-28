@@ -1,0 +1,833 @@
+{
+  "version": 2,
+  "status": "success",
+  "eval": {
+    "run_id": "hmT7affS2nESRpZMeO63av",
+    "created": "2025-04-22T09:59:45-05:00",
+    "task": "chores-dataset13-",
+    "task_id": "301064a5fccd9abb2128e9",
+    "task_version": 0,
+    "task_file": "/Users/simoncouch/Documents/rrr/choreseval/R/scorer.R",
+    "task_attribs": {},
+    "task_args": {},
+    "dataset": {
+      "samples": 3,
+      "sample_ids": [
+        1,
+        2,
+        3
+      ],
+      "shuffled": false
+    },
+    "model": "claude-3-7-sonnet-latest",
+    "model_args": {},
+    "config": {},
+    "revision": {
+      "type": "git",
+      "origin": "https://github.com/UKGovernmentBEIS/inspect_ai.git",
+      "commit": "9140d8a2"
+    },
+    "packages": {
+      "inspect_ai": "0.3.63"
+    },
+    "scorers": [
+      {
+        "name": "chores_scorer",
+        "options": {},
+        "metrics": [
+          {
+            "name": "mean",
+            "options": {}
+          }
+        ],
+        "metadata": {}
+      }
+    ]
+  },
+  "plan": {
+    "name": "plan",
+    "steps": [
+      {
+        "solver": "chores_solver",
+        "params": {
+          "1": "self$samples$input",
+          "solver_chat": "solver_chat"
+        }
+      }
+    ],
+    "config": {}
+  },
+  "results": {
+    "total_samples": 3,
+    "completed_samples": 3,
+    "scores": [
+      {
+        "name": "chores_scorer",
+        "scorer": "chores_scorer",
+        "params": {},
+        "metrics": {
+          "accuracy": {
+            "name": "accuracy",
+            "value": 100,
+            "params": {
+              "1": "numeric_scores"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "stats": {
+    "started_at": "2025-04-22T09:59:35-05:00",
+    "completed_at": "2025-04-22T09:59:45-05:00",
+    "model_usage": {
+      "claude-3-7-sonnet-latest": {
+        "input_tokens": 14204,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 85,
+        "total_tokens": 14289
+      }
+    }
+  },
+  "samples": [
+    {
+      "id": "cli-ad-hoc-collapse",
+      "epoch": 1,
+      "input": [
+        [
+          {
+            "user": "      p_names <- pset$id[is.na(pset$object)]\n       msg <-\n         paste0(\n           \"Some parameters do not have corresponding parameter objects \",\n           \"and cannot be used with `autoplot()`: \",\n           paste0(\"'\", p_names, \"'\", collapse = \", \")\n         )\n       rlang::abort(msg)",
+            "helper": "cli"
+          }
+        ]
+      ],
+      "target": "      cli::cli_abort(\n         \"Some parameters do not have corresponding parameter objects and\n          cannot be used with {.fn autoplot}: {.arg {pset$id[is.na(pset$object)]}}.\"\n       )",
+      "messages": [
+        {
+          "id": "WBvUE80PtRWR9hivHhp7GG",
+          "content": "      p_names <- pset$id[is.na(pset$object)]\n       msg <-\n         paste0(\n           \"Some parameters do not have corresponding parameter objects \",\n           \"and cannot be used with `autoplot()`: \",\n           paste0(\"'\", p_names, \"'\", collapse = \", \")\n         )\n       rlang::abort(msg)",
+          "source": "input",
+          "role": "user"
+        },
+        {
+          "id": "8ZxyWlGtVBcFCCKGNucKRs",
+          "content": [
+            {
+              "type": "text",
+              "text": "cli::cli_abort(\"Some parameters do not have corresponding parameter objects and cannot be used with {.fn autoplot}: {.val {p_names}}.\")"
+            }
+          ],
+          "source": "generate",
+          "role": "assistant"
+        }
+      ],
+      "output": {
+        "model": "claude-3-7-sonnet-latest",
+        "choices": [
+          {
+            "message": {
+              "id": "rmJzqOvk309qOAolRWOWd9",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "cli::cli_abort(\"Some parameters do not have corresponding parameter objects and cannot be used with {.fn autoplot}: {.val {p_names}}.\")"
+                }
+              ],
+              "source": "generate",
+              "role": "assistant"
+            },
+            "stop_reason": "stop"
+          }
+        ],
+        "usage": {
+          "input_tokens": 4767,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 0,
+          "output_tokens": 37,
+          "total_tokens": 4804
+        },
+        "time": 1
+      },
+      "scores": {
+        "chores_scorer": {
+          "value": "C",
+          "answer": "cli::cli_abort(\"Some parameters do not have corresponding parameter objects and cannot be used with {.fn autoplot}: {.val {p_names}}.\")",
+          "explanation": "Detected correct answer.",
+          "metadata": {}
+        }
+      },
+      "metadata": {},
+      "store": {},
+      "events": [
+        {
+          "timestamp": "2025-04-22T09:59:45.802834-05:00",
+          "working_start": 100000,
+          "event": "step",
+          "action": "begin",
+          "name": "init"
+        },
+        {
+          "timestamp": "2025-04-22T09:59:45.802931-05:00",
+          "working_start": 100000,
+          "event": "sample_init",
+          "sample": {
+            "input": [
+              [
+                {
+                  "user": "      p_names <- pset$id[is.na(pset$object)]\n       msg <-\n         paste0(\n           \"Some parameters do not have corresponding parameter objects \",\n           \"and cannot be used with `autoplot()`: \",\n           paste0(\"'\", p_names, \"'\", collapse = \", \")\n         )\n       rlang::abort(msg)",
+                  "helper": "cli"
+                }
+              ]
+            ],
+            "target": "      cli::cli_abort(\n         \"Some parameters do not have corresponding parameter objects and\n          cannot be used with {.fn autoplot}: {.arg {pset$id[is.na(pset$object)]}}.\"\n       )",
+            "id": "cli-ad-hoc-collapse"
+          },
+          "state": {
+            "messages": [
+              {
+                "id": "QbBfMolYbkxWyqKBf8g6Mp",
+                "content": [
+                  [
+                    {
+                      "user": "      p_names <- pset$id[is.na(pset$object)]\n       msg <-\n         paste0(\n           \"Some parameters do not have corresponding parameter objects \",\n           \"and cannot be used with `autoplot()`: \",\n           paste0(\"'\", p_names, \"'\", collapse = \", \")\n         )\n       rlang::abort(msg)",
+                      "helper": "cli"
+                    }
+                  ]
+                ],
+                "source": "input",
+                "role": "user"
+              }
+            ],
+            "tools": [],
+            "tool_choice": {},
+            "store": {},
+            "output": {
+              "model": "claude-3-7-sonnet-latest",
+              "choices": []
+            },
+            "completed": false,
+            "metadata": {}
+          }
+        },
+        {
+          "timestamp": "2025-04-22T09:59:45.802977-05:00",
+          "working_start": 100000,
+          "event": "step",
+          "action": "end",
+          "name": "init"
+        },
+        {
+          "timestamp": "2025-04-22T09:59:45.803246-05:00",
+          "working_start": 100000,
+          "event": "step",
+          "action": "begin",
+          "type": "solver",
+          "name": "generate"
+        },
+        {
+          "timestamp": "2025-04-22T09:59:45.803664-05:00",
+          "working_start": 100000,
+          "event": "model",
+          "model": "claude-3-7-sonnet-latest",
+          "input": [
+            {
+              "id": "fFQcBUC0oulhf63Olm9q43",
+              "content": "      p_names <- pset$id[is.na(pset$object)]\n       msg <-\n         paste0(\n           \"Some parameters do not have corresponding parameter objects \",\n           \"and cannot be used with `autoplot()`: \",\n           paste0(\"'\", p_names, \"'\", collapse = \", \")\n         )\n       rlang::abort(msg)",
+              "source": "input",
+              "role": "user"
+            }
+          ],
+          "tools": [],
+          "tool_choice": "none",
+          "config": {
+            "max_tokens": 4096
+          },
+          "output": {
+            "model": "claude-3-7-sonnet-latest",
+            "choices": [
+              {
+                "message": {
+                  "id": "Nc0X5yWJLcZwIGsD3wPlFM",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "cli::cli_abort(\"Some parameters do not have corresponding parameter objects and cannot be used with {.fn autoplot}: {.val {p_names}}.\")"
+                    }
+                  ],
+                  "source": "generate",
+                  "role": "assistant",
+                  "model": "claude-3-7-sonnet-latest"
+                },
+                "stop_reason": "stop"
+              }
+            ],
+            "usage": {
+              "input_tokens": 4767,
+              "input_tokens_cache_write": 0,
+              "input_tokens_cache_read": 0,
+              "output_tokens": 37
+            },
+            "time": 100000
+          },
+          "call": {
+            "request": {
+              "messages": [
+                {
+                  "role": "user",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "      p_names <- pset$id[is.na(pset$object)]\n       msg <-\n         paste0(\n           \"Some parameters do not have corresponding parameter objects \",\n           \"and cannot be used with `autoplot()`: \",\n           paste0(\"'\", p_names, \"'\", collapse = \", \")\n         )\n       rlang::abort(msg)"
+                    }
+                  ]
+                }
+              ],
+              "tools": [],
+              "tool_choice": "none",
+              "model": "claude-3-7-sonnet-latest",
+              "max_tokens": 4096,
+              "extra_headers": {
+                "x-irid": "UCQXTTEwA1Zg4uqg5LHVzP"
+              }
+            },
+            "response": {
+              "id": "msg_xsbadMlwbsIID5Z52YNIoh",
+              "content": [
+                {
+                  "citations": {},
+                  "text": "cli::cli_abort(\"Some parameters do not have corresponding parameter objects and cannot be used with {.fn autoplot}: {.val {p_names}}.\")",
+                  "type": "text"
+                }
+              ],
+              "model": "claude-3-7-sonnet-latest",
+              "role": "assistant",
+              "stop_reason": "end_turn",
+              "stop_sequence": {},
+              "type": "message",
+              "usage": {
+                "input_tokens": 4767,
+                "input_tokens_cache_write": 0,
+                "input_tokens_cache_read": 0,
+                "output_tokens": 37
+              }
+            },
+            "time": 100000
+          },
+          "completed": "2025-04-22T09:59:45.803754-05:00",
+          "working_time": 100000
+        },
+        {
+          "timestamp": "2025-04-22T09:59:45.803786-05:00",
+          "working_start": 100000,
+          "event": "step",
+          "action": "end",
+          "type": "solver",
+          "name": "generate"
+        }
+      ],
+      "model_usage": {
+        "claude-3-7-sonnet-latest": {
+          "input_tokens": 4767,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 37,
+          "total_tokens": 4804
+        }
+      },
+      "attachments": {}
+    },
+    {
+      "id": "cli-collapse-pluralization",
+      "epoch": 1,
+      "input": [
+        [
+          {
+            "user": "    rlang::abort(\n       glue::glue(\n         \"Extra arguments will be ignored: \",\n         glue::glue_collapse(glue::glue(\"`{names(dots)}`\"), sep = \", \")\n       )\n     )",
+            "helper": "cli"
+          }
+        ]
+      ],
+      "target": "cli::cli_abort(\"The extra argument{?s} {.arg {names(dots)}} will be ignored.\")",
+      "messages": [
+        {
+          "id": "W9Iv9lp68EvsqchPz9vEfS",
+          "content": "    rlang::abort(\n       glue::glue(\n         \"Extra arguments will be ignored: \",\n         glue::glue_collapse(glue::glue(\"`{names(dots)}`\"), sep = \", \")\n       )\n     )",
+          "source": "input",
+          "role": "user"
+        },
+        {
+          "id": "vICqfcNq0ynaFMdwAD1BnA",
+          "content": [
+            {
+              "type": "text",
+              "text": "cli::cli_abort(\"Extra arguments will be ignored: {.code {names(dots)}}.\")"
+            }
+          ],
+          "source": "generate",
+          "role": "assistant"
+        }
+      ],
+      "output": {
+        "model": "claude-3-7-sonnet-latest",
+        "choices": [
+          {
+            "message": {
+              "id": "MvOwfrbo9QqsTjh2A9Yy8e",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "cli::cli_abort(\"Extra arguments will be ignored: {.code {names(dots)}}.\")"
+                }
+              ],
+              "source": "generate",
+              "role": "assistant"
+            },
+            "stop_reason": "stop"
+          }
+        ],
+        "usage": {
+          "input_tokens": 4741,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 0,
+          "output_tokens": 25,
+          "total_tokens": 4766
+        },
+        "time": 1
+      },
+      "scores": {
+        "chores_scorer": {
+          "value": "C",
+          "answer": "cli::cli_abort(\"Extra arguments will be ignored: {.code {names(dots)}}.\")",
+          "explanation": "Detected correct answer.",
+          "metadata": {}
+        }
+      },
+      "metadata": {},
+      "store": {},
+      "events": [
+        {
+          "timestamp": "2025-04-22T09:59:45.804517-05:00",
+          "working_start": 100000,
+          "event": "step",
+          "action": "begin",
+          "name": "init"
+        },
+        {
+          "timestamp": "2025-04-22T09:59:45.804555-05:00",
+          "working_start": 100000,
+          "event": "sample_init",
+          "sample": {
+            "input": [
+              [
+                {
+                  "user": "    rlang::abort(\n       glue::glue(\n         \"Extra arguments will be ignored: \",\n         glue::glue_collapse(glue::glue(\"`{names(dots)}`\"), sep = \", \")\n       )\n     )",
+                  "helper": "cli"
+                }
+              ]
+            ],
+            "target": "cli::cli_abort(\"The extra argument{?s} {.arg {names(dots)}} will be ignored.\")",
+            "id": "cli-collapse-pluralization"
+          },
+          "state": {
+            "messages": [
+              {
+                "id": "qJkCl8vMejlMgI2RM2ra1g",
+                "content": [
+                  [
+                    {
+                      "user": "    rlang::abort(\n       glue::glue(\n         \"Extra arguments will be ignored: \",\n         glue::glue_collapse(glue::glue(\"`{names(dots)}`\"), sep = \", \")\n       )\n     )",
+                      "helper": "cli"
+                    }
+                  ]
+                ],
+                "source": "input",
+                "role": "user"
+              }
+            ],
+            "tools": [],
+            "tool_choice": {},
+            "store": {},
+            "output": {
+              "model": "claude-3-7-sonnet-latest",
+              "choices": []
+            },
+            "completed": false,
+            "metadata": {}
+          }
+        },
+        {
+          "timestamp": "2025-04-22T09:59:45.804585-05:00",
+          "working_start": 100000,
+          "event": "step",
+          "action": "end",
+          "name": "init"
+        },
+        {
+          "timestamp": "2025-04-22T09:59:45.804694-05:00",
+          "working_start": 100000,
+          "event": "step",
+          "action": "begin",
+          "type": "solver",
+          "name": "generate"
+        },
+        {
+          "timestamp": "2025-04-22T09:59:45.804852-05:00",
+          "working_start": 100000,
+          "event": "model",
+          "model": "claude-3-7-sonnet-latest",
+          "input": [
+            {
+              "id": "a63xw8uOGj5NTDcYj3udry",
+              "content": "    rlang::abort(\n       glue::glue(\n         \"Extra arguments will be ignored: \",\n         glue::glue_collapse(glue::glue(\"`{names(dots)}`\"), sep = \", \")\n       )\n     )",
+              "source": "input",
+              "role": "user"
+            }
+          ],
+          "tools": [],
+          "tool_choice": "none",
+          "config": {
+            "max_tokens": 4096
+          },
+          "output": {
+            "model": "claude-3-7-sonnet-latest",
+            "choices": [
+              {
+                "message": {
+                  "id": "G0n9n1fZ6AVOyoKdhsUCe0",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "cli::cli_abort(\"Extra arguments will be ignored: {.code {names(dots)}}.\")"
+                    }
+                  ],
+                  "source": "generate",
+                  "role": "assistant",
+                  "model": "claude-3-7-sonnet-latest"
+                },
+                "stop_reason": "stop"
+              }
+            ],
+            "usage": {
+              "input_tokens": 4741,
+              "input_tokens_cache_write": 0,
+              "input_tokens_cache_read": 0,
+              "output_tokens": 25
+            },
+            "time": 100000
+          },
+          "call": {
+            "request": {
+              "messages": [
+                {
+                  "role": "user",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "    rlang::abort(\n       glue::glue(\n         \"Extra arguments will be ignored: \",\n         glue::glue_collapse(glue::glue(\"`{names(dots)}`\"), sep = \", \")\n       )\n     )"
+                    }
+                  ]
+                }
+              ],
+              "tools": [],
+              "tool_choice": "none",
+              "model": "claude-3-7-sonnet-latest",
+              "max_tokens": 4096,
+              "extra_headers": {
+                "x-irid": "RlItSGMECqgrkGfnAQfy4G"
+              }
+            },
+            "response": {
+              "id": "msg_7WSV5yv7v7gXcm6lM0vHzJ",
+              "content": [
+                {
+                  "citations": {},
+                  "text": "cli::cli_abort(\"Extra arguments will be ignored: {.code {names(dots)}}.\")",
+                  "type": "text"
+                }
+              ],
+              "model": "claude-3-7-sonnet-latest",
+              "role": "assistant",
+              "stop_reason": "end_turn",
+              "stop_sequence": {},
+              "type": "message",
+              "usage": {
+                "input_tokens": 4741,
+                "input_tokens_cache_write": 0,
+                "input_tokens_cache_read": 0,
+                "output_tokens": 25
+              }
+            },
+            "time": 100000
+          },
+          "completed": "2025-04-22T09:59:45.804924-05:00",
+          "working_time": 100000
+        },
+        {
+          "timestamp": "2025-04-22T09:59:45.804981-05:00",
+          "working_start": 100000,
+          "event": "step",
+          "action": "end",
+          "type": "solver",
+          "name": "generate"
+        }
+      ],
+      "model_usage": {
+        "claude-3-7-sonnet-latest": {
+          "input_tokens": 4741,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 25,
+          "total_tokens": 4766
+        }
+      },
+      "attachments": {}
+    },
+    {
+      "id": "cli-dbplyr-argument-inline",
+      "epoch": 1,
+      "input": [
+        [
+          {
+            "user": "abort(\"DuckDB does not support the `returning` argument.\")",
+            "helper": "cli"
+          }
+        ]
+      ],
+      "target": "cli_abort(\"DuckDB does not support the {.arg returning} argument.\")",
+      "messages": [
+        {
+          "id": "g6mXh9KfhUzrsf2weBjfWV",
+          "content": "abort(\"DuckDB does not support the `returning` argument.\")",
+          "source": "input",
+          "role": "user"
+        },
+        {
+          "id": "5IEuGFAoi6kB5KndHIX3JU",
+          "content": [
+            {
+              "type": "text",
+              "text": "cli::cli_abort(\"DuckDB does not support the {.arg returning} argument.\")"
+            }
+          ],
+          "source": "generate",
+          "role": "assistant"
+        }
+      ],
+      "output": {
+        "model": "claude-3-7-sonnet-latest",
+        "choices": [
+          {
+            "message": {
+              "id": "vbgzME2qnz6Rh3l1GxrRgP",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "cli::cli_abort(\"DuckDB does not support the {.arg returning} argument.\")"
+                }
+              ],
+              "source": "generate",
+              "role": "assistant"
+            },
+            "stop_reason": "stop"
+          }
+        ],
+        "usage": {
+          "input_tokens": 4696,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 0,
+          "output_tokens": 23,
+          "total_tokens": 4719
+        },
+        "time": 1
+      },
+      "scores": {
+        "chores_scorer": {
+          "value": "C",
+          "answer": "cli::cli_abort(\"DuckDB does not support the {.arg returning} argument.\")",
+          "explanation": "Detected correct answer.",
+          "metadata": {}
+        }
+      },
+      "metadata": {},
+      "store": {},
+      "events": [
+        {
+          "timestamp": "2025-04-22T09:59:45.805660-05:00",
+          "working_start": 100000,
+          "event": "step",
+          "action": "begin",
+          "name": "init"
+        },
+        {
+          "timestamp": "2025-04-22T09:59:45.805696-05:00",
+          "working_start": 100000,
+          "event": "sample_init",
+          "sample": {
+            "input": [
+              [
+                {
+                  "user": "abort(\"DuckDB does not support the `returning` argument.\")",
+                  "helper": "cli"
+                }
+              ]
+            ],
+            "target": "cli_abort(\"DuckDB does not support the {.arg returning} argument.\")",
+            "id": "cli-dbplyr-argument-inline"
+          },
+          "state": {
+            "messages": [
+              {
+                "id": "6lUAYN6OSSpuCXq0PzupKN",
+                "content": [
+                  [
+                    {
+                      "user": "abort(\"DuckDB does not support the `returning` argument.\")",
+                      "helper": "cli"
+                    }
+                  ]
+                ],
+                "source": "input",
+                "role": "user"
+              }
+            ],
+            "tools": [],
+            "tool_choice": {},
+            "store": {},
+            "output": {
+              "model": "claude-3-7-sonnet-latest",
+              "choices": []
+            },
+            "completed": false,
+            "metadata": {}
+          }
+        },
+        {
+          "timestamp": "2025-04-22T09:59:45.805726-05:00",
+          "working_start": 100000,
+          "event": "step",
+          "action": "end",
+          "name": "init"
+        },
+        {
+          "timestamp": "2025-04-22T09:59:45.805826-05:00",
+          "working_start": 100000,
+          "event": "step",
+          "action": "begin",
+          "type": "solver",
+          "name": "generate"
+        },
+        {
+          "timestamp": "2025-04-22T09:59:45.805975-05:00",
+          "working_start": 100000,
+          "event": "model",
+          "model": "claude-3-7-sonnet-latest",
+          "input": [
+            {
+              "id": "BwNwQsfBvmdC3m4NUSV3sq",
+              "content": "abort(\"DuckDB does not support the `returning` argument.\")",
+              "source": "input",
+              "role": "user"
+            }
+          ],
+          "tools": [],
+          "tool_choice": "none",
+          "config": {
+            "max_tokens": 4096
+          },
+          "output": {
+            "model": "claude-3-7-sonnet-latest",
+            "choices": [
+              {
+                "message": {
+                  "id": "QNcZBAiE6ws0yxsccgmuEf",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "cli::cli_abort(\"DuckDB does not support the {.arg returning} argument.\")"
+                    }
+                  ],
+                  "source": "generate",
+                  "role": "assistant",
+                  "model": "claude-3-7-sonnet-latest"
+                },
+                "stop_reason": "stop"
+              }
+            ],
+            "usage": {
+              "input_tokens": 4696,
+              "input_tokens_cache_write": 0,
+              "input_tokens_cache_read": 0,
+              "output_tokens": 23
+            },
+            "time": 100000
+          },
+          "call": {
+            "request": {
+              "messages": [
+                {
+                  "role": "user",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "abort(\"DuckDB does not support the `returning` argument.\")"
+                    }
+                  ]
+                }
+              ],
+              "tools": [],
+              "tool_choice": "none",
+              "model": "claude-3-7-sonnet-latest",
+              "max_tokens": 4096,
+              "extra_headers": {
+                "x-irid": "HwARvYEdTrpSAxwzQjbGtT"
+              }
+            },
+            "response": {
+              "id": "msg_9aLmnM3ZXqrEnZhe4didfw",
+              "content": [
+                {
+                  "citations": {},
+                  "text": "cli::cli_abort(\"DuckDB does not support the {.arg returning} argument.\")",
+                  "type": "text"
+                }
+              ],
+              "model": "claude-3-7-sonnet-latest",
+              "role": "assistant",
+              "stop_reason": "end_turn",
+              "stop_sequence": {},
+              "type": "message",
+              "usage": {
+                "input_tokens": 4696,
+                "input_tokens_cache_write": 0,
+                "input_tokens_cache_read": 0,
+                "output_tokens": 23
+              }
+            },
+            "time": 100000
+          },
+          "completed": "2025-04-22T09:59:45.806041-05:00",
+          "working_time": 100000
+        },
+        {
+          "timestamp": "2025-04-22T09:59:45.806062-05:00",
+          "working_start": 100000,
+          "event": "step",
+          "action": "end",
+          "type": "solver",
+          "name": "generate"
+        }
+      ],
+      "model_usage": {
+        "claude-3-7-sonnet-latest": {
+          "input_tokens": 4696,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 23,
+          "total_tokens": 4719
+        }
+      },
+      "attachments": {}
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "id": "cli-paste-collapse",
+  "user": "      bad <- x[!did_load]\n       msg <- paste0(\"'\", bad, \"'\", collapse = \", \")\n       rlang::abort(paste(\"These packages could not be loaded:\", msg))",
+  "target": "bad <- x[!did_load]\ncli::cli_abort(\"The package{?s} {.pkg {x[!did_load]}} could not be loaded.\")\n",
+  "helper": "cli",
+  "source": "https://github.com/tidymodels/tune/commit/f6772f472039a63b0a0cf83058d1ded6c228a9a9",
+  "parsable": true
+}

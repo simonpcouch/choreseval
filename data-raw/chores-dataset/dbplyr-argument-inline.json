@@ -1,0 +1,8 @@
+{
+  "id": "cli-dbplyr-argument-inline",
+  "user": "abort(\"DuckDB does not support the `returning` argument.\")",
+  "target": "cli_abort(\"DuckDB does not support the {.arg returning} argument.\")",
+  "helper": "cli",
+  "source": "https://github.com/tidyverse/dbplyr/commit/2686125a117d40fa95bf7f997397188262ddd9b0",
+  "parsable": true
+}

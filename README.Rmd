@@ -1,0 +1,54 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# The chores eval
+
+<!-- badges: start -->
+
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental) [![CRAN status](https://www.r-pkg.org/badges/version/choreseval)](https://CRAN.R-project.org/package=choreseval)
+
+<!-- badges: end -->
+
+The [chores](https://posit.co/blog/introducing-chores/) package connects an extensible library of LLM assistants to your IDE aimed at helping you with tedious but hard-to-automate tasks.
+
+> I want AI to do my laundry and dishes so that I can do art and writing, not for AI to do my art and writing so that I can do my laundry and dishes. - [Joanna Maciejewska](https://x.com/AuthorJMac/status/1773679197631701238?lang=en)
+
+The chores package supports any LLM supported by [ellmer](https://ellmer.tidyverse.org/): Anthropic's Claude models, the GPT series from OpenAI, local ollama models, etc. I _really_ want to be able to use a local model to power chores but, to this point, I've only seen good results using more powerful models that I can't run on my own hardware. The chores eval evaluates how well a large language model will perform as the model powering chores with the goal of helping me identify such a model.
+
+The chores eval is an example large language model evaluation implemented with [vitals](https://vitals.tidyverse.org/), an LLM eval framework for R.
+
+## Installation
+
+choreseval is implemented as an R package for ease of installation:
+
+``` r
+pak::pak("simonpcouch/choreseval")
+```
+
+## Example
+
+The `chores_task()` function defines a task with the package's built-in dataset, solver, and scorer:
+
+```{r}
+tsk <- chores_task()
+
+tsk
+```
+
+Run `$eval()` with the `solver_chat` of your choice to measure how well that model does on the eval:
+
+```{r}
+tsk$eval()
+```

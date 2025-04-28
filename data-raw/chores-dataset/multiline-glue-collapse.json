@@ -1,0 +1,8 @@
+{
+  "id": "cli-multiline-glue-collapse",
+  "user": "      non_num_cols <- glue::glue_collapse(glue::single_quote(non_num_cols), sep = \", \")\n       msg <- glue::glue(\"Some columns are non-numeric. The data cannot be \",\n                         \"converted to numeric matrix: {non_num_cols}.\")\n       rlang::abort(msg)",
+  "target": "      cli::cli_abort(\n         \"The column{?s} {.val {non_num_cols}} {?is/are} non-numeric, so the\n          data cannot be converted to a numeric matrix.\"\n       )",
+  "helper": "cli",
+  "source": "https://github.com/tidymodels/parsnip/commit/dc9e1883ce66930ccd4497a651f0372fba5c7fac",
+  "parsable": true
+}

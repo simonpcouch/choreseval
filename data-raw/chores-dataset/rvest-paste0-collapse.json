@@ -1,0 +1,8 @@
+{
+  "id": "cli-rvest-paste0-collapse",
+  "user": "    str <- paste(\"'\", no_match, \"'\", collapse = \", \")\n     abort(paste0(\"Can't set value of fields that don't exist: \", str))",
+  "target": "    cli::cli_abort(\n       \"Can't set value of fields that don't exist: {no_match}.\"\n     )",
+  "helper": "cli",
+  "source": "https://github.com/tidyverse/rvest/commit/ee093b1e2f0bf04148b813fe86dc6b98e844969e",
+  "parsable": true
+}
