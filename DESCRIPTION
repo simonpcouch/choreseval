@@ -25,3 +25,5 @@ Imports:
     glue,
     purrr,
     vitals
+URL: https://github.com/simonpcouch/choreseval
+BugReports: https://github.com/simonpcouch/choreseval/issues
