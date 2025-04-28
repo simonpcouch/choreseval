@@ -37,6 +37,12 @@ choreseval is implemented as an R package for ease of installation:
 pak::pak("simonpcouch/choreseval")
 ```
 
+Load it with:
+
+```{r}
+library(choreseval)
+```
+
 ## Example
 
 The `chores_task()` function defines a task with the package's built-in dataset, solver, and scorer:
@@ -50,5 +56,6 @@ tsk
 Run `$eval()` with the `solver_chat` of your choice to measure how well that model does on the eval:
 
 ```{r}
+#| eval: false
 tsk$eval()
 ```
