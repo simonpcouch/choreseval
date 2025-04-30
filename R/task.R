@@ -21,6 +21,9 @@ chores_task <- function(dir = "data-raw/chores/logs") {
     dataset = chores_dataset,
     solver = chores_solver,
     scorer = chores_scorer,
+    metrics = list(percent = function(x) {
+      round(mean(x) * 100, 3)
+    }),
     dir = dir,
     name = "The chores eval"
   )
