@@ -52,7 +52,10 @@ chores_scorer <- function(
   }
 
   # send all of the prompts to the scorer
-  res <- ch$extract_data_parallel(as.list(prompts), type = rubric_type_cli)
+  res <- scorer_chat$extract_data_parallel(
+    as.list(prompts),
+    type = rubric_type_cli
+  )
 
   # tidy up + calculate numeric scores
   res <- mutate(res, across(everything(), ~ na_if(., "NA")))
