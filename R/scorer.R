@@ -27,9 +27,16 @@ chores_scorer <- function(
   ...,
   scorer_chat = ellmer::chat_anthropic(model = "claude-3-7-sonnet-latest")
 ) {
-  # assemble each prompt by gluing the sample data into the rubric
+  # first, filter out all `result`s that aren't valid R code;
+  # those will receive a score of 0
+  result <- samples$result
+  result_is_valid_r_code <- purrr::map_lgl(result, is_valid_r_code)
+  result_indices_to_grade <- which(result_is_valid_r_code)
+
+  # assemble each prompt by gluing the sample data into the rubric.
+  # entries corresponding to invalid r code will have an empty string `""`
   prompts <- character(length(samples$input))
-  for (i in seq_along(samples$input)) {
+  for (i in seq_along(result_indices_to_grade)) {
     user_turn <- samples$input[i]
     assistant_turn <- samples$result[i]
     target <- samples$target[i]
@@ -51,11 +58,20 @@ chores_scorer <- function(
     )
   }
 
-  # send all of the prompts to the scorer
+  # send all of the prompts to the scorer.
+  # the output is a data frame with one row per valid R code result.
   res <- scorer_chat$extract_data_parallel(
-    as.list(prompts),
+    as.list(prompts[prompts != ""]),
     type = rubric_type_cli
   )
+
+  # "fill in" the data by adding rows for the results that weren't
+  # valid R code
+  full_res <- matrix(NA, nrow = length(samples$input), ncol = ncol(res))
+  colnames(full_res) <- colnames(res)
+  full_res <- as_tibble(full_res)
+  full_res[result_indices_to_grade, ] <- res
+  res <- full_res
 
   # tidy up + calculate numeric scores
   res <- mutate(res, across(everything(), ~ na_if(., "NA")))
@@ -65,9 +81,13 @@ chores_scorer <- function(
   res <- mutate(
     res,
     yes_count = sum(across(everything()) == "Yes", na.rm = TRUE),
-    n = sum(!is.na(across(everything()))),
-    # `n` includes `yes_count`
-    prop = yes_count / (n - 1)
+    # the sum would otherwise include `yes_count`
+    n = sum(!is.na(across(everything()))) - 1,
+    prop = case_when(
+      # all NAs, so result wasn't valid R code
+      n == 0 ~ 0,
+      .default = yes_count / n
+    )
   )
 
   list(
@@ -106,3 +126,13 @@ rubric_type_cli <- ellmer::type_object(
     "Uses obj_type_friendly for actual values"
   )
 )
+
+is_valid_r_code <- function(x) {
+  tryCatch(
+    {
+      parse(text = x)
+      TRUE
+    },
+    error = function(e) FALSE
+  )
+}
