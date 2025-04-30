@@ -64,5 +64,7 @@ Run `$eval()` with the `solver_chat` of your choice to measure how well
 that model does on the eval:
 
 ``` r
-tsk$eval()
+tsk$eval(
+  solver_chat = ellmer::chat_anthropic(model = "claude-3-7-sonnet-latest")
+)
 ```
