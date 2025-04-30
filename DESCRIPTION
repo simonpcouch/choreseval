@@ -22,8 +22,10 @@ LazyData: true
 Imports: 
     cli,
     ellmer,
+    dplyr,
     glue,
     purrr,
+    tibble,
     vitals
 URL: https://github.com/simonpcouch/choreseval
 BugReports: https://github.com/simonpcouch/choreseval/issues

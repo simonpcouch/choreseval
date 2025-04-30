@@ -69,16 +69,16 @@ chores_scorer <- function(
   # valid R code
   full_res <- matrix(NA, nrow = length(samples$input), ncol = ncol(res))
   colnames(full_res) <- colnames(res)
-  full_res <- as_tibble(full_res)
+  full_res <- tibble::as_tibble(full_res)
   full_res[result_indices_to_grade, ] <- res
   res <- full_res
 
   # tidy up + calculate numeric scores
-  res <- mutate(res, across(everything(), ~ na_if(., "NA")))
+  res <- dplyr::mutate(res, across(everything(), ~ na_if(., "NA")))
   grading <- res
 
-  res <- rowwise(res)
-  res <- mutate(
+  res <- dplyr::rowwise(res)
+  res <- dplyr::mutate(
     res,
     yes_count = sum(across(everything()) == "Yes", na.rm = TRUE),
     # the sum would otherwise include `yes_count`
