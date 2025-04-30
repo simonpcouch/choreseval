@@ -1,7 +1,7 @@
 {
   "id": "cli-multiline-glue",
   "user": "    rlang::abort(\n       glue::glue(\n         \"`x` and `y` have at least one name in common: \",\n         glue::glue_collapse(glue::glue(\"'{common_names}'\"), sep = \", \")\n       )\n)",
-  "target": "    cli::cli_abort(\n       \"{.arg x} and {.arg y} have the name{?s} {.val {common_names}} in common.\"\n       call = call\n     )",
+  "target": "    cli::cli_abort(\n       \"{.arg x} and {.arg y} have the name{?s} {.val {common_names}} in common.\")",
   "helper": "cli",
   "source": "https://github.com/tidymodels/parsnip/commit/dc9e1883ce66930ccd4497a651f0372fba5c7fac",
   "parsable": true
