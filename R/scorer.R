@@ -76,28 +76,20 @@ chores_scorer <- function(
   # tidy up + calculate numeric scores
   res <- dplyr::mutate(res, across(everything(), ~ dplyr::na_if(., "NA")))
 
-  # after a 2-second "grace period", subtract a point from the
-  # numerator per second
-  res$duration <- purrr::map_dbl(
-    samples$solver_chat,
-    duration_of_last_turn
-  )
   res <- dplyr::rowwise(res)
   res <- dplyr::mutate(
     res,
     yes_count = sum(dplyr::across(dplyr::everything()) == "Yes", na.rm = TRUE),
     # the sum would otherwise include `yes_count` and `duration`
     n = sum(!is.na(dplyr::across(dplyr::everything()))) - 2,
-    duration_penalty = max(duration - 2, 0),
-    numerator = max(yes_count - duration_penalty, 0),
     prop = dplyr::case_when(
       # all NAs, so result wasn't valid R code
       n == 0 ~ 0,
-      .default = numerator / n
+      .default = yes_count / n
     )
   )
 
-  grading <- dplyr::select(res, -c(n, numerator, prop))
+  grading <- dplyr::select(res, -c(n, prop))
 
   list(
     score = res$prop,
@@ -142,17 +134,4 @@ is_valid_r_code <- function(x) {
     },
     error = function(e) FALSE
   )
-}
-
-duration_of_last_turn <- function(chat) {
-  turns <- chat$get_turns()
-
-  user_turn_completed <- turns[[length(turns) - 1]]@completed
-  assistant_turn_completed <- turns[[length(turns)]]@completed
-
-  as.numeric(difftime(
-    assistant_turn_completed,
-    user_turn_completed,
-    units = "secs"
-  ))
 }
