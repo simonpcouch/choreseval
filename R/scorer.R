@@ -75,7 +75,6 @@ chores_scorer <- function(
 
   # tidy up + calculate numeric scores
   res <- dplyr::mutate(res, across(everything(), ~ dplyr::na_if(., "NA")))
-  grading <- res
 
   # after a 2-second "grace period", subtract a point from the
   # numerator per second
@@ -98,11 +97,11 @@ chores_scorer <- function(
     )
   )
 
+  grading <- dplyr::select(res, -c(n, numerator, prop))
+
   list(
     score = res$prop,
-    # TODO: rename to `scorer_metadata` once this format is supported
-    # In that case, grading would need to transposed as well.
-    .scorer_metadata = list(prompts = prompts, grading = grading)
+    scorer_metadata = tibble::tibble(grading = grading, prompt = prompts)
   )
 }
 
