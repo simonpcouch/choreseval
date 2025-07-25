@@ -7,3 +7,4 @@ context/
 .quarto
 inst/log_dump
 inst/doc
+docs

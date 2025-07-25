@@ -41,7 +41,6 @@ pak::pak("simonpcouch/choreseval")
 Load it with:
 
 ``` r
-# label: load
 library(choreseval)
 ```
 

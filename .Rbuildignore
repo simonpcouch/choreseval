@@ -10,3 +10,7 @@ robots.txt
 inst/log_dump/
 context/
 CLAUDE.md
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$

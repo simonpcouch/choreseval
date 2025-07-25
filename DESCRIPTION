@@ -25,9 +25,10 @@ Imports:
     purrr,
     tibble,
     vitals
-URL: https://github.com/simonpcouch/choreseval
+URL: https://github.com/simonpcouch/choreseval, https://simonpcouch.github.io/choreseval/
 BugReports: https://github.com/simonpcouch/choreseval/issues
 Suggests: 
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Config/Needs/website: tidyverse/tidytemplate

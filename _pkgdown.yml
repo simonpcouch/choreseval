@@ -1,0 +1,11 @@
+url: https://simonpcouch.github.io/choreseval/
+template:
+  bootstrap: 5
+
+navbar:
+ structure:
+   left: [motivation, reference]
+ components:
+   motivation:
+     text: Motivation
+     href: articles/motivation.html
