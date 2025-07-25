@@ -5,6 +5,7 @@ output: github_document
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
+#| label: setup
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -21,13 +22,11 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-The [chores](https://posit.co/blog/introducing-chores/) package connects an extensible library of LLM assistants to your IDE aimed at helping you with tedious but hard-to-automate tasks.
+The [chores](https://posit.co/blog/introducing-chores/) package connects an extensible library of LLM assistants to your IDE aimed at helping you with tedious but hard-to-automate tasks. For the most capable LLMs today, like Anthropic's Claude 4 Sonnet or OpenAI's GPT 4.1, carrying out the sorts of tasks that chores supports is easy peasy. However, those models cost money (and require entrusting your IP with a for-profit company), and it's a bit of a hoot to ask R users to put their credit card information down to use an R package.
 
-> I want AI to do my laundry and dishes so that I can do art and writing, not for AI to do my art and writing so that I can do my laundry and dishes. - [Joanna Maciejewska](https://x.com/AuthorJMac/status/1773679197631701238?lang=en)
+This has made me wonder: **Is it possible to use chores with a locally running LLM?** The chores eval evaluates how well a large language model will perform as the model powering chores with the goal of helping me identify a model that chores users can run themselves on a modest laptop. 
 
-The chores package supports any LLM supported by [ellmer](https://ellmer.tidyverse.org/): Anthropic's Claude models, the GPT series from OpenAI, local ollama models, etc. I _really_ want to be able to use a local model to power chores but, to this point, I've only seen good results using more powerful models that I can't run on my own hardware. The chores eval evaluates how well a large language model will perform as the model powering chores with the goal of helping me identify such a model.
-
-The chores eval is an example large language model evaluation implemented with [vitals](https://vitals.tidyverse.org/), an LLM eval framework for R.
+The chores eval is implemented with [vitals](https://vitals.tidyverse.org/), an LLM eval framework for R.
 
 ## Installation
 
@@ -40,14 +39,37 @@ pak::pak("simonpcouch/choreseval")
 Load it with:
 
 ```{r}
+# label: load
 library(choreseval)
 ```
 
 ## Example
 
+As a reader of the eval, you're mostly likely interested in `chores`, a dataset of compiled evaluation results:
+
+```{r}
+#| label: chores
+chores
+```
+
+```{r}
+#| label: chores-plot
+library(tidyverse)
+library(ggrepel)
+
+chores |>
+  mutate(price = as.numeric(gsub("$", "", price, fixed = TRUE))) |>
+  ggplot(aes(x = price, y = score, color = provider, label = model)) +
+  geom_point() +
+  geom_label_repel() +
+  scale_x_log10(labels = scales::dollar_format()) +
+  theme_minimal()
+```
+
 The `chores_task()` function defines a task with the package's built-in dataset, solver, and scorer:
 
 ```{r}
+#| label: chores-task
 tsk <- chores_task()
 
 tsk
@@ -56,6 +78,7 @@ tsk
 Run `$eval()` with the `solver_chat` of your choice to measure how well that model does on the eval:
 
 ```{r}
+#| label: chores-eval
 #| eval: false
 tsk$eval(
   solver_chat = ellmer::chat_anthropic(model = "claude-3-7-sonnet-latest")
