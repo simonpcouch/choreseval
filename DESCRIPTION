@@ -27,3 +27,7 @@ Imports:
     vitals
 URL: https://github.com/simonpcouch/choreseval
 BugReports: https://github.com/simonpcouch/choreseval/issues
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

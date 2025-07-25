@@ -6,3 +6,4 @@ context/
 .DS_Store
 .quarto
 inst/log_dump
+inst/doc

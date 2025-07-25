@@ -1,0 +1,91 @@
+---
+title: "Motivation"
+output: rmarkdown::html_vignette
+date: July 2025
+author: Simon P. Couch
+vignette: >
+  %\VignetteIndexEntry{Motivation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(choreseval)
+```
+
+
+Late last year, I published an R package called [chores](https://simonpcouch.github.io/chores/). chores provides an extensible library of LLM assistants for R users, aimed at helping with repetitive but hard-to-automate tasks.
+
+The package works by having the user select a piece of code that they'd like to edit and then selecting from a dropdown in a shiny app. Each of those dropdown entries corresponds to a system prompt containing a bunch of instructions on how to modify the code that the user selected. I've found the interface super helpful for turning 45-second tasks into 5-second ones and really appreciate the freeing up of that mental real estate for coding tasks I find more interesting. (See [this blog post](https://posit.co/blog/introducing-chores/) for more on chores and how it works.)
+
+When developing the chores package, and for LLM code-assist in general, I use Claude 4 Sonnet, and I recommend it as the model that people make use of with the package. Claude costs money, though—calling a built-in chores helper 1,000 times costs [something like](https://simonpcouch.github.io/chores/#how-much-do-helpers-cost) $15 with Claude. You may or may not feel this is a good bit of money; regardless, to use the package with Claude, users need to input their credit card information on Anthropic's website to test out the package with Claude. This is a big ask just to use an R package.
+
+As models that can be served locally—"for free" in the usual sense of running code on your laptop—get better and better, I've wondered: _Are there any LLMs that are small enough to run on a typical laptop that are high-quality enough to make using chores worth it?_ Up to this point, using chores with models that can be served locally would be more painful than just writing the code oneself. 
+
+_The chores eval_ is an LLM evaluation that I'll be using to try and find a free model that I can recommend chores users adopt.
+
+## The eval
+
+The chores eval measures how well a model would perform as the model powering chores. To be a good fit for chores, a model needs to 1) write code decently well and 2) be _very_ good at instruction-following. The eval is implemented with [vitals](https://vitals.tidyverse.org/), a new R package for large language model evaluation that I've been working on. With vitals, evals are composed of (at least) three pieces: a dataset, solver, and scorer.
+
+A **dataset** is, minimally a data frame of labelled samples `input` and `target`. In our case, `input` is composed of pieces of code "from the wild" that need to be refactored. For example, the chores "cli" helper could refactor this erroring code [from purrr](https://github.com/tidyverse/purrr/commit/06fcb5f8e9709b6796976e4b6d1ed5d67558c92a) to the use the cli package:
+
+```r
+stop("Cannot coerce .x to a vector", call. = FALSE)
+```
+
+A successful conversion to cli would transition to `cli::cli_abort()`, apply inline markup to `.x` to note that it's an argument (or `code`), and transition the argument value `call. = FALSE` to its cli analogue `call = NULL`. Here's the `target` grading guidance for that `input`:
+
+`````
+```
+cli::cli_abort(
+  "Can't coerce {.arg .x} to a vector."
+)
+```
+
+Can also have `call = NULL`, i.e.:
+
+```
+cli::cli_abort(
+  "Can't coerce {.arg .x} to a vector.", 
+  call = NULL
+)
+```
+
+The backticks are for example only and should not be included in the desired output.
+`````
+
+The next core piece is a **solver**, or a function that takes `input` and, via some LLM-based tool, processes the input to hopefully output something like the `target`. In the case of this eval, the solver applies the [cli chore system prompt](https://github.com/simonpcouch/chores/blob/fbb7f1cecbcbcbd2b1b803bd16aef6a4f340d50b/inst/prompts/cli-replace.md) and passes it the `input` as the user turn, returning whatever the model returns. The model powering the solver is the important "independent variable" here.
+
+The final element is the **scorer**. This eval uses model grading, where the cli chore system prompt, input, target, and solver output are all concatenated into one string. Then, all of this is passed to _another_ LLM, at which point that model is asked to make use of all of this context to score the solver output according to a [rubric](https://github.com/simonpcouch/choreseval/blob/main/inst/prompts/rubric-cli.md#5-rubric). The rubric includes 14 grading criteria that can be "Yes", "No", or NA, where NA indicates that that grading criterion isn't applicable for the given refactor. The score for that question is then calculate as `n("Yes") / (n("Yes") + n("No"))`. 
+
+There are two catches here:
+
+* If the solver doesn't output valid R code for a given input, that response is given a score of 0. 
+* Solvers are given a 2-second "grace period" for their response to finish streaming. After that, each additional second results in a point subtracted from that numerator (with a minimum score of 0).
+
+At the end of the eval, the scores are averaged and multiplied by 100 to generate a percentage.
+
+## Initial benchmarks
+
+The usual advice for writing LLM evaluations is that, when the eval is first released, the state-of-the-art performance should be really low. Like, single digits low.
+
+My use case for this eval is a bit different. In my case, I already _have_ a model that works really well, and I don't need it to do any better. **Claude 4 Sonnet already performs almost perfectly**, as do many other models. If they didn't do super well, this would be a bug in the eval rather than a shortcoming of the model—these problems should be easily solvable for strong LLMs.
+
+The thing that I'm actually interested in is **how small and/or cheap can a model be while still performing well?** Ideally, I'd like a 8-billion parameter model, or even 4- or 2- or 1-billion parameter model, that can return correctly refactored code within a couple seconds. In that case, users with a laptop with 8GB or 4GB of RAM could feasibly do so as well.
+
+For consistency, I'll be running these evals on my laptop. It's a 4-year old—but relatively maxed-out at the time—16" Macbook Pro. In the grand scheme of "computers that people write R code on," this is pretty fancy.
+
+As such, there's a sort of "weight class" dynamic here. Expensive models that require specialized hardware to run shouldn't be compared to something that can be served locally on my iPhone; I recommend thinking about these models as belonging to one of a few classes, each opening up different modes of using and communicating about chores.
+
+* Strong LLMs: These are models that are a couple to a few dollars per million input tokens. Claude 3.7 Sonnet is $3.00, GPT-4o is $3.75 and -4.1 is $2.00, Gemini 2.5 Pro is $1.25. These models do really well on the eval; I've ran them as I developed the eval but don't think I'll do so as new models come out.
+* Budget LLMs: These models are between $0.50 and $0.10 per million inputs tokens. For example, GPT 4.1-mini is $0.40 and -nano is $0.10. Gemini 2.0 Flash is $0.35. In the example of GPT 4.1-nano, this is _thirty times_ cheaper than Claude 3.7 Sonnet. That's 2,000 refactors per dollar. If such a model is a capable helper, I could confidently tell a user "Put $1.00 on this API key and you will never have to reload it."
+* Local LLMs: Anything I can run on my Macbook. My system has 32GB of RAM, but a 32-billion parameter model would probably run so slowly that the speed penalty would overtake strong performance. My guess would be that, at the moment, there a couple of models available today that are >50% on this eval.
+* SmoLLMs: Maximum of 4-billion parameters. This is ultimately what I'm _really_ interested in.
