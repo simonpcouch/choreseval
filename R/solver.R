@@ -27,10 +27,21 @@ chores_solver <- function(inputs, ..., solver_chat) {
   ch$set_turns(list())
   ch$set_system_prompt(cli_system_prompt)
 
+  # TODO: ultimately, these timings need to be request-by-request.
+  # https://github.com/tidyverse/ellmer/issues/479
+  # Provides that don't support parallel chatting (namely, ollama),
+  # will get a reasonable average per-request, while provides that do
+  # support parallelism will get overoptimistic timings.
+  # We purposefully avoid system.time for its error handling
+  time_start <- proc.time()
   res <- ellmer::parallel_chat(ch, as.list(inputs), ...)
+  time_end <- proc.time()
+  average_timing <- (time_end["elapsed"] - time_start["elapsed"]) /
+    length(inputs)
 
   list(
     result = purrr::map_chr(res, function(c) c$last_turn()@text),
-    solver_chat = res
+    solver_chat = res,
+    solver_metadata = list(duration = unname(average_timing))
   )
 }

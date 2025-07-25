@@ -15,7 +15,7 @@
 #' \describe{
 #'   \item{score}{Numeric vector of scores between 0 and 1, representing the
 #'     proportion of criteria met.}
-#'   \item{.scorer_metadata}{List containing the prompts used for scoring and
+#'   \item{scorer_metadata}{List containing the prompts used for scoring and
 #'     the detailed grading results.}
 #' }
 #'
@@ -77,12 +77,14 @@ chores_scorer <- function(
   # tidy up + calculate numeric scores
   res <- dplyr::mutate(res, across(everything(), ~ dplyr::na_if(., "NA")))
 
+  res$duration <- samples$solver_metadata[[1]]
+  res$duration_penalty <- max(samples$solver_metadata[[1]] - 2, 0)
   res <- dplyr::rowwise(res)
   res <- dplyr::mutate(
     res,
     yes_count = sum(dplyr::across(dplyr::everything()) == "Yes", na.rm = TRUE),
-    # the sum would otherwise include `yes_count` and `duration`
-    n = sum(!is.na(dplyr::across(dplyr::everything()))) - 2,
+    # the sum would otherwise include `yes_count`, `duration`, and `duration_penalty`
+    n = sum(!is.na(dplyr::across(dplyr::everything()))) - 3,
     prop = dplyr::case_when(
       # all NAs, so result wasn't valid R code
       n == 0 ~ 0,
