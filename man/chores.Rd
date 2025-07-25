@@ -5,7 +5,7 @@
 \alias{chores}
 \title{Evaluation results}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 1 rows and 5 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 8 rows and 6 columns.
 }
 \usage{
 chores
@@ -43,8 +43,15 @@ are great, indicating a model is a good fit for use with chores.
 For reference, Claude 4 Sonnet scores
 \item \code{cost}: The total cost to run the solving across the 102 samples
 (estimated by ellmer).
-\item \code{metadata}:
+\item \code{metadata}: The full evaluation samples.
 }
 }
 
+\examples{
+library(tibble)
+
+chores
+dplyr::glimpse(chores)
+
+}
 \keyword{datasets}

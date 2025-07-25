@@ -31,7 +31,14 @@
 #'   For reference, Claude 4 Sonnet scores
 #' * `cost`: The total cost to run the solving across the 102 samples
 #'   (estimated by ellmer).
-#' * `metadata`:
+#' * `metadata`: The full evaluation samples.
+#'
+#' @examples
+#' library(tibble)
+#'
+#' chores
+#' dplyr::glimpse(chores)
+#'
 "chores"
 
 chores_eval <- function(solver_chat, name = task_name(solver_chat)) {
