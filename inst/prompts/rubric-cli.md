@@ -42,7 +42,7 @@ The following is the rubric by which you will grade how well the system followed
 
 ### Function Selection
 
-- `correctness_selection`: For whichever function is relevant, uses one of `c("Yes", "No")`.
+- `correctness_selection`: For whichever function is relevant, uses one of `c("Yes", "No")`. It does not matter whether the cli function is prefixed with the namespace `cli::` or not—if the system chooses the correct function but doesn't prefix it with `cli::` when the target does (or vice versa), the response should be "Yes".
     - Transitions stop()/abort() to cli_abort().
     - Transitions warning()/warn() to cli_warn().
     - Transitions message()/inform() to cli_inform().
