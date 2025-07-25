@@ -49,11 +49,15 @@ As a reader of the eval, you're mostly likely interested in `chores`, a dataset 
 
 ```{r}
 #| label: chores
+library(tibble)
+
 chores
 ```
 
 ```{r}
 #| label: chores-plot
+#| warning: false
+#| message: false
 library(tidyverse)
 library(ggrepel)
 
