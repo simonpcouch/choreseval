@@ -60,7 +60,8 @@ chores_scorer <- function(
 
   # send all of the prompts to the scorer.
   # the output is a data frame with one row per valid R code result.
-  res <- scorer_chat$extract_data_parallel(
+  res <- ellmer::parallel_chat_structured(
+    scorer_chat,
     as.list(prompts[prompts != ""]),
     type = rubric_type_cli
   )

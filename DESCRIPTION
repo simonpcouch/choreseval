@@ -16,12 +16,10 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Depends: 
     R (>= 4.1)
-Remotes:
-    tidyverse/ellmer
 LazyData: true
 Imports: 
     cli,
-    ellmer,
+    ellmer (>= 0.3.0),
     dplyr,
     glue,
     purrr,

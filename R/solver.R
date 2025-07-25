@@ -27,7 +27,7 @@ chores_solver <- function(inputs, ..., solver_chat) {
   ch$set_turns(list())
   ch$set_system_prompt(cli_system_prompt)
 
-  res <- ch$chat_parallel(as.list(inputs), ...)
+  res <- ellmer::parallel_chat(ch, as.list(inputs), ...)
 
   list(
     result = purrr::map_chr(res, function(c) c$last_turn()@text),
