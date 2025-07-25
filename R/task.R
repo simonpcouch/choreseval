@@ -16,7 +16,7 @@
 #'   [chores_solver] for the solver function, and [chores_scorer] for the
 #'   scoring function.
 #' @export
-chores_task <- function(dir = "data-raw/chores/logs") {
+chores_task <- function(dir = "data-raw/chores/logs", epochs = 3) {
   vitals::Task$new(
     dataset = chores_dataset,
     solver = chores_solver,
@@ -24,6 +24,7 @@ chores_task <- function(dir = "data-raw/chores/logs") {
     metrics = list(percent = function(x) {
       round(mean(x) * 100, 3)
     }),
+    epochs = epochs,
     dir = dir,
     name = "The chores eval"
   )
