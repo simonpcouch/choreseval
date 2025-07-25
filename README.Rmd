@@ -67,7 +67,8 @@ chores |>
   geom_point() +
   geom_label_repel() +
   scale_x_log10(labels = scales::dollar_format()) +
-  theme_minimal()
+  theme_minimal() +
+  labs(x = "Price (USD, per 100 refactorings)", y = "Score")
 ```
 
 The `chores_task()` function defines a task with the package's built-in dataset, solver, and scorer:

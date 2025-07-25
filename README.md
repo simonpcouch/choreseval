@@ -77,7 +77,8 @@ chores |>
   geom_point() +
   geom_label_repel() +
   scale_x_log10(labels = scales::dollar_format()) +
-  theme_minimal()
+  theme_minimal() +
+  labs(x = "Price (USD, per 100 refactorings)", y = "Score")
 ```
 
 <img src="man/figures/README-chores-plot-1.png" width="100%" />
