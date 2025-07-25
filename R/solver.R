@@ -34,7 +34,7 @@ chores_solver <- function(inputs, ..., solver_chat) {
   # support parallelism will get overoptimistic timings.
   # We purposefully avoid system.time for its error handling
   time_start <- proc.time()
-  res <- ellmer::parallel_chat(ch, as.list(inputs), ...)
+  res <- ellmer::parallel_chat(ch, as.list(inputs), ..., max_active = 4)
   time_end <- proc.time()
   average_timing <- (time_end["elapsed"] - time_start["elapsed"]) /
     length(inputs)
