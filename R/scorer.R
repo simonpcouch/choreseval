@@ -8,7 +8,7 @@
 #' `task$get_samples()`.
 #' @param ... Additional arguments passed to the scoring function.
 #' @param scorer_chat An ellmer chat object to use for scoring. Defaults to
-#'   `ellmer::chat_anthropic(model = "claude-3-7-sonnet-latest")`; this is the
+#'   `ellmer::chat_anthropic(model = "claude-sonnet-4-20250514")`; this is the
 #'   scoring model used in "official" results.
 #'
 #' @return A list with the following components:
@@ -25,7 +25,7 @@
 chores_scorer <- function(
   samples,
   ...,
-  scorer_chat = ellmer::chat_anthropic(model = "claude-3-7-sonnet-latest")
+  scorer_chat = ellmer::chat_anthropic(model = "claude-sonnet-4-20250514")
 ) {
   # first, filter out all `result`s that aren't valid R code;
   # those will receive a score of 0
