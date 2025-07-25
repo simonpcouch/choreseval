@@ -10,7 +10,7 @@ task_files <- list.files(
 
 tasks <- list()
 
-provider_and_model <- function(chat) {
+get_provider_and_model <- function(chat) {
   p <- chat$get_provider()
   c(p@name, p@model)
 }
@@ -19,7 +19,7 @@ for (file in task_files) {
   task_name <- tools::file_path_sans_ext(basename(file))
   task_data <- readRDS(file)
   task_samples <- task_data$get_samples()
-  provider_and_model <- provider_and_model(task_samples$solver_chat[[1]])
+  provider_and_model <- get_provider_and_model(task_samples$solver_chat[[1]])
   cost <- task_data$get_cost()
   cost <- cost[cost$source == "solver", "price"]
   tasks[[task_name]] <- tibble::tibble(
