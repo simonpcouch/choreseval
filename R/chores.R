@@ -17,14 +17,20 @@
 #'   the [cli chore helper][chores::`doc-helper-cli`], each repeated 3 times.
 #' * Each refactoring is then graded according to a rubric using Claude 4
 #'   Sonnet. The grading results in a score between 0 and 1 and incorporates
-#'   measures of code quality as well as execution time.
+#'   measures of code quality as well as execution time. The score on the eval
+#'   is the mean of the per-sample scores multiplied by 100.
 #' * Grading costs something like $2.50; the cost of solving depends on the
 #'   model pricing.
 #'
 #' @section Columns:
-#' * `provider`:
-#' * `model`:
-#' * `score`:
+#' * `name`: An identifier for the experiment.
+#' * `provider`: The ellmer provider name.
+#' * `model`: The model name.
+#' * `score`: The score on the eval, from 0 to 100. Scores above 80
+#'   are great, indicating a model is a good fit for use with chores.
+#'   For reference, Claude 4 Sonnet scores
+#' * `cost`: The total cost to run the solving across the 102 samples
+#'   (estimated by ellmer).
 #' * `metadata`:
 "chores"
 

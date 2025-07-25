@@ -20,11 +20,14 @@ for (file in task_files) {
   task_data <- readRDS(file)
   task_samples <- task_data$get_samples()
   provider_and_model <- provider_and_model(task_samples$solver_chat[[1]])
+  cost <- task_data$get_cost()
+  cost <- cost[cost$source == "solver", "price"]
   tasks[[task_name]] <- tibble::tibble(
     name = task_name,
     provider = provider_and_model[1],
     model = provider_and_model[2],
     score = mean(task_samples$score),
+    price = cost,
     metadata = list(task_samples)
   )
 }
