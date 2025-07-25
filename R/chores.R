@@ -28,18 +28,17 @@
 #' * `metadata`:
 "chores"
 
-chores_eval <- function(solver_chat) {
+chores_eval <- function(solver_chat, name = task_name(solver_chat)) {
   tsk <- chores_task()
   tsk$eval(solver_chat = solver_chat)
   saveRDS(
     tsk,
-    file = paste0("data-raw/chores/tasks/", task_basename(solver_chat))
+    file = paste0("data-raw/chores/tasks/", name, ".rds")
   )
   source("data-raw/chores.R")
 }
 
-# TODO: this wouldn't allow for tasks that differ only by parameter settings.
-task_basename <- function(chat) {
+task_name <- function(chat) {
   provider <- chat$get_provider()
-  paste0(provider@name, "-", provider@model, ".rds")
+  paste0(provider@name, "-", provider@model)
 }

@@ -8,23 +8,20 @@ task_files <- list.files(
   full.names = TRUE
 )
 
-task_data <- list()
+tasks <- list()
 
-split_on_first_hyphen <- function(string) {
-  pos <- regexpr("-", string)
-  if (pos == -1) {
-    c(string, "")
-  } else {
-    c(substr(string, 1, pos - 1), substr(string, pos + 1, nchar(string)))
-  }
+provider_and_model <- function(chat) {
+  p <- chat$get_provider()
+  c(p@name, p@model)
 }
 
 for (file in task_files) {
   task_name <- tools::file_path_sans_ext(basename(file))
-  provider_and_model <- split_on_first_hyphen(task_name)
   task_data <- readRDS(file)
   task_samples <- task_data$get_samples()
+  provider_and_model <- provider_and_model(task_samples$solver_chat[[1]])
   tasks[[task_name]] <- tibble::tibble(
+    name = task_name,
     provider = provider_and_model[1],
     model = provider_and_model[2],
     score = mean(task_samples$score),
