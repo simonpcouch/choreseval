@@ -52,6 +52,9 @@ chores_solver <- function(inputs, ..., solver_chat) {
   list(
     result = purrr::map_chr(res, function(c) c$last_turn()@text),
     solver_chat = res,
-    solver_metadata = as.list(timings)
+    solver_metadata = setNames(
+      as.list(timings),
+      rep("duration", length(timings))
+    )
   )
 }

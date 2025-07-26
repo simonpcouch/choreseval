@@ -78,8 +78,8 @@ chores_scorer <- function(
   # tidy up + calculate numeric scores
   res <- dplyr::mutate(res, across(everything(), ~ dplyr::na_if(., "NA")))
 
-  res$duration <- samples$solver_metadata[[1]]
-  res$duration_penalty <- max(samples$solver_metadata[[1]] - 2, 0)
+  res$duration <- unname(unlist(samples$solver_metadata))
+  res$duration_penalty <- purrr::map_dbl(res$duration - 2, max, 0)
   res <- dplyr::rowwise(res)
   res <- dplyr::mutate(
     res,
@@ -89,7 +89,7 @@ chores_scorer <- function(
     prop = dplyr::case_when(
       # all NAs, so result wasn't valid R code
       n == 0 ~ 0,
-      .default = yes_count / n
+      .default = max((yes_count - duration_penalty) / n, 0)
     )
   )
 
