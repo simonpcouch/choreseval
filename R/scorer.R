@@ -14,7 +14,8 @@
 #' @return A list with the following components:
 #' \describe{
 #'   \item{score}{Numeric vector of scores between 0 and 1, representing the
-#'     proportion of criteria met.}
+#'     proportion of criteria met (with a penalty for elapsed time beyond
+#'     2 seconds per sample).}
 #'   \item{scorer_metadata}{List containing the prompts used for scoring and
 #'     the detailed grading results.}
 #' }
