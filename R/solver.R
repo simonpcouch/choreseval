@@ -27,21 +27,31 @@ chores_solver <- function(inputs, ..., solver_chat) {
   ch$set_turns(list())
   ch$set_system_prompt(cli_system_prompt)
 
-  # TODO: ultimately, these timings need to be request-by-request.
-  # https://github.com/tidyverse/ellmer/issues/479
-  # Provides that don't support parallel chatting (namely, ollama),
-  # will get a reasonable average per-request, while provides that do
-  # support parallelism will get overoptimistic timings.
-  # We purposefully avoid system.time for its error handling
-  time_start <- proc.time()
-  res <- ellmer::parallel_chat(ch, as.list(inputs), ..., max_active = 4)
-  time_end <- proc.time()
-  average_timing <- (time_end["elapsed"] - time_start["elapsed"]) /
-    length(inputs)
+  # We purposefully avoid system.time for its error handlers.
+  # Solve in sequence rather than in parallel so we can get better
+  # tokens/s estimates (and to lessen the impact of rate limiting
+  # on those estimates for remote models).
+  res <- vector("list", length = length(inputs))
+  timings <- vector("numeric", length = length(inputs))
+
+  withr::local_options(cli.progress_show_after = 0)
+  cli::cli_progress_bar("Solving", total = length(inputs))
+  cli::cli_progress_update(inc = 0)
+  for (i in seq_along(inputs)) {
+    input <- inputs[i]
+    ch_i <- ch$clone()
+    time_start <- proc.time()
+    ch_i$chat(input, echo = FALSE)
+    time_end <- proc.time()
+    res[[i]] <- ch_i
+    timings[i] <- unname(time_end["elapsed"] - time_start["elapsed"])
+    cli::cli_progress_update()
+  }
+  cli::cli_progress_done()
 
   list(
     result = purrr::map_chr(res, function(c) c$last_turn()@text),
     solver_chat = res,
-    solver_metadata = list(duration = unname(average_timing))
+    solver_metadata = as.list(timings)
   )
 }
