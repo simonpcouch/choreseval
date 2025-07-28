@@ -41,9 +41,9 @@
 #'
 "chores"
 
-chores_eval <- function(solver_chat, name = task_name(solver_chat)) {
+chores_eval <- function(solver_chat, name = task_name(solver_chat), ...) {
   tsk <- chores_task()
-  tsk$eval(solver_chat = solver_chat)
+  tsk$eval(solver_chat = solver_chat, ...)
   saveRDS(
     tsk,
     file = paste0("data-raw/chores/tasks/", name, ".rds")
