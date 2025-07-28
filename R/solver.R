@@ -41,7 +41,7 @@ chores_solver <- function(inputs, ..., solver_chat, disable_thinking = FALSE) {
     input <- inputs[i]
     # Allow turning off <think></think> for ollama models (#2)
     if (isTRUE(disable_thinking)) {
-      paste0(c(input, disable_thinking_keyword(ch)), collapse = "\n\n")
+      input <- paste0(c(input, disable_thinking_keyword(ch)), collapse = "\n\n")
     }
     ch_i <- ch$clone()
     time_start <- proc.time()
