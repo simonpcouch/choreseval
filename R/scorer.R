@@ -82,7 +82,11 @@ chores_scorer <- function(
   # tidy up + calculate numeric scores
   res <- dplyr::mutate(res, across(everything(), ~ dplyr::na_if(., "NA")))
 
-  res$duration <- unname(unlist(samples$solver_metadata))
+  res$duration <- purrr::map_dbl(
+    samples$solver_metadata,
+    purrr::pluck,
+    "duration"
+  )
   res$duration_penalty <- purrr::map_dbl(res$duration - 2, max, 0)
   res <- dplyr::rowwise(res)
   res <- dplyr::mutate(

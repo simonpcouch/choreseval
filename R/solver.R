@@ -20,7 +20,7 @@
 #' @seealso [chores_dataset] for the dataset this solver processes, and
 #'  [chores_task()] to combine this solver with the chores dataset and scorer.
 #' @export
-chores_solver <- function(inputs, ..., solver_chat) {
+chores_solver <- function(inputs, ..., solver_chat, disable_thinking = FALSE) {
   check_inherits(solver_chat, "Chat")
 
   ch <- solver_chat$clone()
@@ -39,6 +39,10 @@ chores_solver <- function(inputs, ..., solver_chat) {
   cli::cli_progress_update(inc = 0)
   for (i in seq_along(inputs)) {
     input <- inputs[i]
+    # Allow turning off <think></think> for ollama models (#2)
+    if (isTRUE(disable_thinking)) {
+      paste0(c(input, disable_thinking_keyword(ch)), collapse = "\n\n")
+    }
     ch_i <- ch$clone()
     time_start <- proc.time()
     ch_i$chat(input, echo = FALSE)
@@ -52,9 +56,21 @@ chores_solver <- function(inputs, ..., solver_chat) {
   list(
     result = purrr::map_chr(res, function(c) c$last_turn()@text),
     solver_chat = res,
-    solver_metadata = setNames(
-      as.list(timings),
-      rep("duration", length(timings))
-    )
+    solver_metadata = purrr::map(timings, function(t) {
+      list(duration = t, thinking_disabled = disable_thinking)
+    })
   )
+}
+
+# fmt: skip
+disable_thinking_keywords <- tibble::tribble(
+  ~model, ~keyword,
+  "qwen3:14b", "\\no_think"
+)
+
+disable_thinking_keyword <- function(chat) {
+  chat_model <- chat$get_provider()@model
+  disable_thinking_keywords$keyword[
+    disable_thinking_keywords$model == chat_model
+  ]
 }
