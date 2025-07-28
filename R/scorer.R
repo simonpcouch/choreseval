@@ -26,11 +26,15 @@
 chores_scorer <- function(
   samples,
   ...,
-  scorer_chat = ellmer::chat_anthropic(model = "claude-sonnet-4-20250514")
+  scorer_chat = ellmer::chat_anthropic(model = "claude-sonnet-4-20250514"),
+  remove_xml_tags = FALSE
 ) {
   # first, filter out all `result`s that aren't valid R code;
   # those will receive a score of 0
   result <- samples$result
+  if (isTRUE(remove_xml_tags)) {
+    result <- purrr::map_chr(result, remove_xml_tags)
+  }
   result_is_valid_r_code <- purrr::map_lgl(result, is_valid_r_code)
   result_indices_to_grade <- which(result_is_valid_r_code)
 
@@ -138,4 +142,8 @@ is_valid_r_code <- function(x) {
     },
     error = function(e) FALSE
   )
+}
+
+remove_xml_tags <- function(x) {
+  gsub("<[^>]*>[^<]*</[^>]*>", "", x)
 }
