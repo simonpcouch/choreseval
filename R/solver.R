@@ -20,7 +20,13 @@
 #' @seealso [chores_dataset] for the dataset this solver processes, and
 #'  [chores_task()] to combine this solver with the chores dataset and scorer.
 #' @export
-chores_solver <- function(inputs, ..., solver_chat, disable_thinking = FALSE) {
+chores_solver <- function(
+  inputs,
+  ...,
+  solver_chat,
+  disable_thinking = FALSE,
+  push_system_prompt = FALSE
+) {
   check_inherits(solver_chat, "Chat")
 
   ch <- solver_chat$clone()
@@ -44,6 +50,12 @@ chores_solver <- function(inputs, ..., solver_chat, disable_thinking = FALSE) {
       input <- paste0(c(input, disable_thinking_keyword(ch)), collapse = "\n\n")
     }
     ch_i <- ch$clone()
+    # Optionally inline the contents of the system prompt into the user turn,
+    # as recommended by some ollama models (#2)
+    if (isTRUE(push_system_prompt)) {
+      input <- paste0(c(ch_i$get_system_prompt(), input), collapse = "\n\n")
+      ch_i$set_system_prompt(NULL)
+    }
     time_start <- proc.time()
     ch_i$chat(input, echo = FALSE)
     time_end <- proc.time()
